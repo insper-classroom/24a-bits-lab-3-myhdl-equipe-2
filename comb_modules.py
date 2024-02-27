@@ -89,7 +89,7 @@ def exe4(led, sw):
 @block
 def exe5(leds, sw):
     """
-    led0 é uma copia da chave sw0
+    led0 é uma cópia da chave sw0
     led1 é sw0 & sw1
     led2 é o led1 invertido
     led3 é xor entre sw0 e sw1
@@ -98,7 +98,14 @@ def exe5(leds, sw):
 
     @always_comb
     def comb():
-        pass
+        leds[0].next = sw[0]
+        leds[1].next = sw[0] and sw[1]
+        leds[2].next = not (sw[0] and sw[1])
+        leds[3].next = sw[0] ^ sw[1] 
+        
+        
+        for i in range(4, len(leds)):
+            leds[i].next = 1 # ACENDER TODOS OUTROS LED
 
     return instances()
 
